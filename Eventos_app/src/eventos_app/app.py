@@ -1,3 +1,6 @@
+#Gustavo Villa
+#Jose Hidalgo
+
 from flask import Flask, render_template, redirect, url_for, request
 import uuid
 from anuncios_app.forms import EventForm, RegistrationForm
