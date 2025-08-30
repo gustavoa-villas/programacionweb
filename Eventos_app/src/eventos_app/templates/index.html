@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Eventos Destacados</h2>
+<ul>
+    {% for event in events %}
+    <li>
+        <a href="{{ url_for('event_detail', slug=event.slug.date }} {{ event.time }} - {{ event.location }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
