@@ -1,2 +1,2 @@
 def hello() -> str:
-    return "Hello from anuncios-app!"
+    return "Hello from eventos-app!"
