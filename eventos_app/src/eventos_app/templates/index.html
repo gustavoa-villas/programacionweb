@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Eventos{% endblock %}
+{% block content %}
+<h1>Eventos Destacados</h1>
+{% if featured %}
+    <ul>
+    {% for event in featured %}
+        <li>
+            <strong>{{ event.title }}</strong> - {{ event.date }} - {{ event.location }}
+            <br>
+            <a href="{{ url_for('event_detail', slug=event.slug) }}">Ver detalles</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay eventos destacados en este momento.</p>
+{% endif %}
+
+<hr>
+
+<h1>Eventos Próximos</h1>
+<ul>
+    {% for event in events %}
+        <li>
+            <strong>{{ event.title }}</strong> - {{ event.date }} - {{ event.location }}
+            <br>
+            <a href="{{ url_for('event_detail', slug=event.slug) }}">Ver detalles</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
