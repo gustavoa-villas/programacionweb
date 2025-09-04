@@ -1,3 +1,1 @@
-# eventos-app
-
-Describe your project here.
+Integrantes: Gustavo Villa, Jose Hidalgo
