@@ -1,0 +1,52 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Gestión de Personas</h1>
+        <a href="{{ url_for('nueva_persona') }}" class="btn btn-primary">Nueva Persona</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Identificación</th>
+                            <th>Rol</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for persona in personas %}
+                        <tr>
+                            <td>{{ persona.id }}</td>
+                            <td>{{ persona.nombre_completo }}</td>
+                            <td>{{ persona.identificacion }}</td>
+                            <td>{{ persona.rol|capitalize }}</td>
+                            <td>{{ persona.email }}</td>
+                            <td>{{ persona.telefono }}</td>
+                            <td>
+                                <a href="{{ url_for('editar_persona', id=persona.id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                <form action="{{ url_for('eliminar_persona', id=persona.id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Eliminar a {{ persona.nombre_completo }}? Esta acción no se puede deshacer.');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">No hay personas registradas</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base_template.html" %}
+
+{% block title %}Mis Préstamos - Sistema de Préstamos Audiovisuales{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Mis Préstamos</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Elemento</th>
+                <th>Tipo</th>
+                <th>Fecha de Préstamo</th>
+                <th>Estado</th>
+                <th>Registrado por</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prestamo in prestamos %}
+            <tr>
+                <td>{{ prestamo.elemento.nombre }}</td>
+                <td>{{ prestamo.elemento.tipo|capitalize }}</td>
+                <td>{{ prestamo.fecha_prestamo.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>
+                    <span class="badge 
+                        {% if prestamo.estado == 'pendiente' %}bg-warning
+                        {% elif prestamo.estado == 'activo' %}bg-primary
+                        {% elif prestamo.estado == 'devuelto' %}bg-success
+                        {% else %}bg-secondary{% endif %}">
+                        {{ prestamo.estado|capitalize }}
+                    </span>
+                </td>
+                <td>{{ prestamo.usuario.nombre }}</td>
+                <td>
+                    {% if prestamo.estado != 'devuelto' and prestamo.estado != 'cancelado' %}
+                    <a href="{{ url_for('devolver_prestamo', prestamo_id=prestamo.id) }}" class="btn btn-sm btn-success">Devolver</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No tienes préstamos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

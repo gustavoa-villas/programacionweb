@@ -1,0 +1,66 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ titulo }}</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre">{{ form.nombre.label }}</label>
+                        {{ form.nombre(class="form-control") }}
+                        {% for error in form.nombre.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="apellido">{{ form.apellido.label }}</label>
+                        {{ form.apellido(class="form-control") }}
+                        {% for error in form.apellido.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="identificacion">{{ form.identificacion.label }}</label>
+                        {{ form.identificacion(class="form-control") }}
+                        {% for error in form.identificacion.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="rol">{{ form.rol.label }}</label>
+                        {{ form.rol(class="form-control") }}
+                        {% for error in form.rol.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email">{{ form.email.label }}</label>
+                        {{ form.email(class="form-control") }}
+                        {% for error in form.email.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="telefono">{{ form.telefono.label }}</label>
+                        {{ form.telefono(class="form-control") }}
+                        {% for error in form.telefono.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('listar_personas') }}" class="btn btn-secondary">Cancelar</a>
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base_template.html" %}
+
+{% block title %}Listado de Préstamos - Administración{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Listado de Préstamos</h1>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Elemento</th>
+                            <th>Placa</th>
+                            <th>Persona</th>
+                            <th>Identificación</th>
+                            <th>Rol</th>
+                            <th>Registrado por</th>
+                            <th>Fecha Préstamo</th>
+                            <th>Estado</th>
+                            <th>Fecha Devolución</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prestamo in prestamos %}
+                        <tr>
+                            <td>{{ prestamo.id }}</td>
+                            <td>
+                                <a href="{{ url_for('ver_elemento_slug', slug=prestamo.elemento.slug) }}">
+                                    {{ prestamo.elemento.nombre }}
+                                </a>
+                            </td>
+                            <td>{{ prestamo.elemento.placa }}</td>
+                            <td>{{ prestamo.persona.nombre_completo }}</td>
+                            <td>{{ prestamo.persona.identificacion }}</td>
+                            <td>{{ prestamo.persona.rol|capitalize }}</td>
+                            <td>{{ prestamo.usuario.nombre }}</td>
+                            <td>{{ prestamo.fecha_prestamo.strftime('%d/%m/%Y %H:%M') }}</td>
+                            <td>{{ prestamo.estado|capitalize }}</td>
+                            <td>
+                                {% if prestamo.fecha_devolucion %}
+                                    {{ prestamo.fecha_devolucion.strftime('%d/%m/%Y %H:%M') }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="10" class="text-center">No hay préstamos registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

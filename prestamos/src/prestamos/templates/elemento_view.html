@@ -1,0 +1,37 @@
+{% extends "base_template.html" %}
+
+{% block title %}{{ elemento.nombre }} - Sistema de Préstamos Audiovisuales{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h2>{{ elemento.nombre }}</h2>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Tipo: {{ elemento.tipo|capitalize }}</h5>
+        <p class="card-text"><strong>Placa:</strong> {{ elemento.placa }}</p>
+        <p class="card-text">{{ elemento.descripcion }}</p>
+        <div class="mb-3">
+            <span class="badge {% if elemento.disponible %}bg-success{% else %}bg-danger{% endif %} p-2">
+                {% if elemento.disponible %}Disponible{% else %}No Disponible{% endif %}
+            </span>
+        </div>
+        
+        {% if current_user.is_authenticated and elemento.disponible %}
+        <a href="{{ url_for('solicitar_prestamo', elemento_id=elemento.id) }}" class="btn btn-primary">Solicitar Préstamo</a>
+        {% elif not current_user.is_authenticated %}
+        <div class="alert alert-info">
+            <a href="{{ url_for('login') }}">Inicia sesión</a> para solicitar este elemento en préstamo.
+        </div>
+        {% endif %}
+        
+        {% if current_user.is_authenticated and (current_user.es_admin or elemento.user_id == current_user.id) %}
+        <form action="{{ url_for('eliminar_elemento', id=elemento.id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Eliminar este elemento? Esta acción no se puede deshacer.');">
+            <button type="submit" class="btn btn-outline-danger mt-2">Eliminar</button>
+        </form>
+        {% endif %}
+        
+        <a href="{{ url_for('listar_elementos') }}" class="btn btn-secondary mt-2">Volver a la lista</a>
+    </div>
+</div>
+{% endblock %}

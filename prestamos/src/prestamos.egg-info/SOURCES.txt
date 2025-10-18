@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/prestamos/__init__.py
+src/prestamos/forms.py
+src/prestamos/models.py
+src/prestamos/run.py
+src/prestamos.egg-info/PKG-INFO
+src/prestamos.egg-info/SOURCES.txt
+src/prestamos.egg-info/dependency_links.txt
+src/prestamos.egg-info/requires.txt
+src/prestamos.egg-info/top_level.txt
